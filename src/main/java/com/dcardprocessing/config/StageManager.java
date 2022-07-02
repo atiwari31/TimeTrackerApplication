@@ -9,9 +9,14 @@ import org.slf4j.Logger;
 import com.dcardprocessing.view.FxmlView;
 
 import javafx.application.Platform;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
 
 /**
  * Manages switching Scenes on the Primary Stage
@@ -36,6 +41,7 @@ public class StageManager {
         Scene scene = prepareScene(rootnode);
         scene.getStylesheets().add("/styles/Styles.css");
         
+       
         //primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);

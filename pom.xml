@@ -4,12 +4,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.dcardprocessing</groupId>
-	<artifactId>DCardProcessing</artifactId>
+	<groupId>com.timetracker</groupId>
+	<artifactId>TimeTrackerApplication</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0</version>
 
-	<name>DCardProcessingApp</name>
+	<name>TimeTrackerApplication</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -35,7 +35,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
-		<dependency>
+	 	<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
@@ -47,6 +47,28 @@
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.python/jython -->
+<dependency>
+    <groupId>org.python</groupId>
+    <artifactId>jython-standalone</artifactId>
+    <version>2.7.1</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/com.github.luben/zstd-jni -->
+<!-- https://mvnrepository.com/artifact/com.1stleg/jnativehook -->
+<dependency>
+    <groupId>com.1stleg</groupId>
+    <artifactId>jnativehook</artifactId>
+    <version>2.0.2</version>
+</dependency>
+
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+			<version>8.0.13</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 <dependency>
@@ -96,12 +118,12 @@
 		</dependency>
 		<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
 			<scope>runtime</scope> </dependency> -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 			<version>8.0.13</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

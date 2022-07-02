@@ -22,7 +22,7 @@
    <children>
       <AnchorPane prefHeight="317.0" prefWidth="461.0" styleClass="background" stylesheets="@../styles/Styles.css">
          <children>
-               <Label fx:id="lblLogin" layoutX="108.0" layoutY="28.0" prefHeight="30.0" prefWidth="350.0" text="     Card Scan Application" >
+               <Label fx:id="lblLogin" layoutX="108.0" layoutY="28.0" prefHeight="30.0" prefWidth="350.0" text="     User Activity Application" >
               
                <font>
                   <Font name="System Bold" size="20.0" />

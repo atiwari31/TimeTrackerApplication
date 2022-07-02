@@ -1,6 +1,7 @@
 package com.dcardprocessing.controller;
 
 
+import java.awt.AWTException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -11,23 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
-import com.dcardprocessing.JasyptConfig;
-import com.dcardprocessing.bean.User;
 import com.dcardprocessing.config.StageManager;
-import com.dcardprocessing.service.UserService;
-import com.dcardprocessing.util.JSONParserUtility;
+import com.dcardprocessing.service.impl.ImageCaptureServiceImpl;
+
 import com.dcardprocessing.view.FxmlView;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 
 
 
@@ -46,60 +44,24 @@ public class LoginController implements Initializable{
     @FXML
     private Label lblLogin = new Label();
     
-    @Autowired
-    private UserService userService;
-    
+   
     @Lazy
     @Autowired
     private StageManager stageManager;
     
-    private static User userInstance= new User();
-    
-    
-        
-	/**
-	 * @return the userInstance
-	 */
-	public static User getUserInstance() {
-		return userInstance;
-	}
+    @Autowired
+    private ImageCaptureServiceImpl imageCaptureServiceImpl;
+
 
 	@FXML
-    private void login(ActionEvent event) throws IOException{
+    private void login(ActionEvent event) throws IOException, InterruptedException, AWTException{
 		
-	   	
-
-	   	if (validate("Email", getUsername(), "[a-zA-Z0-9][a-zA-Z0-9._]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+")
-				&& emptyValidation("Password", getPassword().isEmpty())) {
-	   		User user = userService.authenticateUser(getUsername(), getPassword());
-	   		if(user==null) {
-	   			
-	   			stageManager.switchScene(FxmlView.LOGIN);	
-	   			lblLogin.setText("Invalid Username/Password.");
-	   		}
-	   		else if((null!=user) && "Admin".equals(user.getRole()) || "Super".equals(user.getRole())) {
-    		userInstance=user;
-    		if(user != null && getPassword().equals(user.getPassword())){
-    			userInstance.setFirstName(JasyptConfig.decryptKey(user.getFirstName()));
-        	   	userInstance.setLastName(JasyptConfig.decryptKey(user.getLastName()));
-        	   	userInstance.setEmail(user.getEmail());
-        	   	userInstance.setId(user.getId());
-    			stageManager.switchScene(FxmlView.ADMIN);
-    		}
-    		username.setCursor(Cursor.DEFAULT);
+			
     		lblLogin.setText("Invalid Username/Password. Please try again.");
-    	}else if(user != null && getPassword().equals(JasyptConfig.decryptKey(user.getPassword()))) {
-    		
-    		userInstance.setFirstName(JasyptConfig.decryptKey(user.getFirstName()));
-    	   	userInstance.setLastName(JasyptConfig.decryptKey(user.getLastName()));
-    	   	userInstance.setEmail(user.getEmail());
-    		userInstance.setId(user.getId());
-    		stageManager.switchScene(FxmlView.USER_FILE_SCAN);	
-    	}else {
-    		stageManager.switchScene(FxmlView.LOGIN);	
-    		lblLogin.setText("Invalid Username/Password. Please try again.");
-    	}
-	}
+    		imageCaptureServiceImpl.callScreen();
+    		imageCaptureServiceImpl.keyboardActivity();
+    		stageManager.switchScene(FxmlView.ADMIN_LOG_DETAIL);
+	
    }
 
 	private boolean emptyValidation(String field, boolean empty) {
