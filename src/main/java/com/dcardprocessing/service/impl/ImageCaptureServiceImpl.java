@@ -40,7 +40,7 @@ public class ImageCaptureServiceImpl extends Thread{
 	private ImageService imageService;
 	
 
-	public void  callScreen() throws InterruptedException, AWTException, IOException {
+	public ScheduledExecutorService  callScreen() throws InterruptedException, AWTException, IOException {
 		
 		
 		 ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
@@ -55,7 +55,7 @@ public class ImageCaptureServiceImpl extends Thread{
 		    } catch (InterruptedException e) {
 		          e.printStackTrace();
 		    }
-		 
+		 return executor;
 	}
 
 	public void  keyboardActivity() throws InterruptedException, AWTException, IOException {
@@ -63,6 +63,7 @@ public class ImageCaptureServiceImpl extends Thread{
 		
 		try {
 			GlobalScreen.registerNativeHook();
+			
 		}
 		catch (NativeHookException ex) {
 			System.err.println("There was a problem registering the native hook.");

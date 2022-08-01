@@ -1,26 +1,22 @@
 package com.dcardprocessing;
 
-import java.time.LocalDate;
+import static com.dcardprocessing.controller.DashboardController.endTime;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.dcardprocessing.config.StageManager;
 import com.dcardprocessing.view.FxmlView;
 
 import javafx.application.Application;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 @SpringBootApplication
-
 public class TimeTrackerApp extends Application {
 
 	protected ConfigurableApplicationContext springContext;
-	protected StageManager stageManager;
+	public static StageManager stageManager;
 
 	public static void main(final String[] args) {
 		Application.launch(args);
@@ -42,7 +38,7 @@ public class TimeTrackerApp extends Application {
 
 	@Override
 	public void stop() throws Exception {
-		
+		endTime();
 		springContext.close();
 		System.exit(1);
 	}

@@ -78,7 +78,7 @@ public enum FxmlView {
 
 		@Override
 		public String getFxmlFile() {
-			return "/fxml/AdminLogDetail.fxml";
+			return "/fxml/Dashboard.fxml";
 		}
 	},
 
@@ -114,80 +114,9 @@ public enum FxmlView {
 		public String getFxmlFile() {
 			return "/fxml/MySql.fxml";
 		}
-	},
+	};
 
-	IP {
-		@Override
-		public String getTitle() {
-			return getStringFromResourceBundle("IP.title");
-		}
-
-		@Override
-		public String getFxmlFile() {
-			return "/fxml/IP.fxml";
-		}
-
-	},
-	REVIEW_FILE_SCAN {
-		@Override
-		public String getTitle() {
-			return getStringFromResourceBundle("review.file.title");
-		}
-
-		@Override
-		public String getFxmlFile() {
-			return "/fxml/Review_fileScan.fxml";
-		}
-
-	},
-	REVIEW_MYSQL {
-		@Override
-		public String getTitle() {
-			return getStringFromResourceBundle("Review.MYSQL.title");
-		}
-
-		@Override
-		public String getFxmlFile() {
-			return "/fxml/ReviewMySQL.fxml";
-		}
-
-	},
-	
-	SCAN_SCHEDULE {
-		@Override
-		public String getTitle() {
-			return getStringFromResourceBundle("scan.schedule.title");
-		}
-
-		@Override
-		public String getFxmlFile() {
-			return "/fxml/scan_schedule.fxml";
-		}
-
-	},
-	SCAN_SCHEDULE_DETAILS {
-		@Override
-		public String getTitle() {
-			return getStringFromResourceBundle("scan.schedule.details.title");
-		}
-
-		@Override
-		public String getFxmlFile() {
-			return "/fxml/scan_schedule_details.fxml";
-		}
-
-	},
-	 REMOTE_CONNECTION{
-        @Override
-		public String getTitle() {
-            return getStringFromResourceBundle("remote.title");
-        }
-
-        @Override
-		public String getFxmlFile() {
-            return "/fxml/Remote_Connection.fxml";
-        }
- };
+ 
 
 	public abstract String getTitle();
 
