@@ -10,6 +10,7 @@ import com.dcardprocessing.config.StageManager;
 import com.dcardprocessing.view.FxmlView;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 @SpringBootApplication
@@ -31,7 +32,7 @@ public class TimeTrackerApp extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-
+		stage.getIcons().add(new Image("/images/logo.png"));
 		stageManager = springContext.getBean(StageManager.class, stage);
 		displayInitialScene();
 	}

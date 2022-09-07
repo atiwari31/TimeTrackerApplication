@@ -85,7 +85,7 @@ public class DashboardController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		projectObjList = FXCollections.observableArrayList();
 		
-		welcome.setText("Welcome To Elina Application :" + userName);
+		welcome.setText("Welcome To Eiliana Application :" + userName);
 
 		// TODO Auto-generated method stub
 		ProjectDetails projectDetails = new ProjectDetails();

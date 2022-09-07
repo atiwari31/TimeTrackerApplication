@@ -1,16 +1,10 @@
 package com.dcardprocessing.bean;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="desktop")
+//@Entity
+//@Table(name="desktop")
 public class DesktopEntity {
-	 @Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+//	 @Id
+//	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private Long id;
 	 
 	 private String activity;

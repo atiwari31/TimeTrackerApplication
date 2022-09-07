@@ -1,14 +1,13 @@
 package com.dcardprocessing.controller;
 
 import java.awt.AWTException;
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,28 +17,30 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
 import com.dcardprocessing.config.StageManager;
 import com.dcardprocessing.model.Login;
-import com.dcardprocessing.service.impl.ImageCaptureServiceImpl;
-
 import com.dcardprocessing.view.FxmlView;
 
+import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
 
 @Controller
-public class LoginController implements Initializable {
+public class LoginController  implements Initializable {
 
 	@FXML
 	private Button btnLogin;
@@ -57,7 +58,6 @@ public class LoginController implements Initializable {
 	@Autowired
 	private StageManager stageManager;
 
-	
 
 	public static String tokenSession;
 	public static Long id;
@@ -160,5 +160,14 @@ public class LoginController implements Initializable {
 		username.clear();
 		password.clear();
 
+	}
+
+	@FXML
+	public void forgetPassword() throws Exception {
+		Desktop.getDesktop().browse(java.net.URI.create("https://eiliana.com/account/forgot-password"));
+	}
+	@FXML
+	public void signup() throws Exception {
+		Desktop.getDesktop().browse(java.net.URI.create("https://eiliana.com/signup"));
 	}
 }

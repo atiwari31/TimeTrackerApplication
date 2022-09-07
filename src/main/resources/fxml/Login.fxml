@@ -16,7 +16,7 @@
    <children>
       <AnchorPane prefHeight="284.0" prefWidth="418.0" styleClass="background" stylesheets="@../styles/Styles.css">
          <children>
-               <Label fx:id="lblLogin" layoutX="38.0" layoutY="28.0" prefHeight="30.0" prefWidth="320.0" text="       Elina Desktop Application" textFill="#2f84fa">
+               <Label fx:id="lblLogin" layoutX="38.0" layoutY="28.0" prefHeight="30.0" prefWidth="320.0" text="       Eiliana Desktop Application" textFill="#2f84fa">
               
                <font>
                   <Font name="System Bold" size="20.0" />
@@ -33,8 +33,8 @@
                   <DropShadow blurType="ONE_PASS_BOX" />
                </effect>
             </Button>
-            <Hyperlink layoutX="28.0" layoutY="164.0" prefHeight="23.0" prefWidth="99.0" text="Forget Password" />
-            <Hyperlink layoutX="238.0" layoutY="164.0" prefHeight="23.0" prefWidth="99.0" text="Sing up for free" />
+            <Hyperlink fx:id="fpasswordlink" layoutX="28.0" layoutY="164.0" prefHeight="23.0" prefWidth="99.0" text="Forget Password" onAction="#forgetPassword"/>
+            <Hyperlink fx:id="singup" layoutX="238.0" layoutY="164.0" prefHeight="23.0" prefWidth="99.0" text="Sing up for free" onAction="#signup"/>
        
          </children>
          <opaqueInsets>
