@@ -59,6 +59,8 @@ public class DashboardController implements Initializable {
 	@FXML
 	private Button btnstartButton;
 	@FXML
+	private Button btnstopButton; 
+	@FXML
 	private Label startsuccess;
 	@FXML
 	private Label projecterror;
@@ -252,6 +254,12 @@ public class DashboardController implements Initializable {
 			imageCaptureServiceImpl.keyboardActivity();
 
 		}
+	}
+	@FXML
+	public void stopScan(ActionEvent event) throws InterruptedException, AWTException, IOException, ParseException {
+		
+		System.out.println();
+
 	}
 
 	/**

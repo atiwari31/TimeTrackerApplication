@@ -73,7 +73,7 @@
             <Insets right="5.0" />
          </padding>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="336.0" prefWidth="617.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="336.0" prefWidth="617.0" VBox.vgrow="NEVER">
       <children>
         <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
           <font>
@@ -91,7 +91,7 @@
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></Label>
-            <Button fx:id="btnstartButton" layoutX="23.0" layoutY="151.0" mnemonicParsing="false" onAction="#startScan" prefHeight="26.0" prefWidth="415.0" text="START TASK" textFill="#1320ab">
+            <Button fx:id="btnstartButton" layoutX="48.0" layoutY="148.0" mnemonicParsing="false" onAction="#startScan" prefHeight="26.0" prefWidth="169.0" text="START TASK" textFill="#1320ab">
                <font>
                   <Font name="Arial Bold" size="14.0" />
                </font>
@@ -114,6 +114,26 @@
             <Label fx:id="successmsg" layoutX="147.0" layoutY="127.0" prefHeight="21.0" prefWidth="280.0" text="" textFill="#227697">
                <font>
                   <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnstopButton" layoutX="251.0" layoutY="148.0" mnemonicParsing="false" onAction="#stopScan" prefHeight="26.0" prefWidth="188.0" text="STOP TASK" textFill="#1320ab">
+               <font>
+                  <Font name="Arial Bold" size="14.0" />
+               </font>
+            </Button>
+            <Label layoutX="37.0" layoutY="213.0" prefHeight="27.0" prefWidth="115.0" text="START TIME">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="277.0" layoutY="213.0" prefHeight="27.0" prefWidth="115.0" text="TOTAL TIME">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="498.0" layoutY="213.0" prefHeight="27.0" prefWidth="115.0" text="PANDING">
+               <font>
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Label>
       </children>
