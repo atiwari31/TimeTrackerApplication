@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 import com.dcardprocessing.bean.ImageEntity;
 @Service
 public class ImageServiceImpl implements ImageService{
+	
+	 public int time_id_image;
+	 public int lead_id_image;
+	
+	
 //     @Autowired
 //	private ImageRepository imageRepository;
      
@@ -57,6 +62,34 @@ public class ImageServiceImpl implements ImageService{
 	public ImageEntity save(ImageEntity entity) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * @return the time_id_image
+	 */
+	public int getTime_id_image() {
+		return time_id_image;
+	}
+
+	/**
+	 * @param time_id_image the time_id_image to set
+	 */
+	public void setTime_id_image(int time_id_image) {
+		this.time_id_image = time_id_image;
+	}
+
+	/**
+	 * @return the lead_id_image
+	 */
+	public int getLead_id_image() {
+		return lead_id_image;
+	}
+
+	/**
+	 * @param lead_id_image the lead_id_image to set
+	 */
+	public void setLead_id_image(int lead_id_image) {
+		this.lead_id_image = lead_id_image;
 	}
 
 

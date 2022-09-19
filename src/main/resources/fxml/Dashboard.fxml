@@ -116,12 +116,22 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
+               <Label fx:id="successmsgStop" layoutX="147.0" layoutY="127.0" prefHeight="21.0" prefWidth="280.0" text="" textFill="#227697">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
             <Button fx:id="btnstopButton" layoutX="251.0" layoutY="148.0" mnemonicParsing="false" onAction="#stopScan" prefHeight="26.0" prefWidth="188.0" text="STOP TASK" textFill="#1320ab">
                <font>
                   <Font name="Arial Bold" size="14.0" />
                </font>
             </Button>
-            <Label layoutX="37.0" layoutY="213.0" prefHeight="27.0" prefWidth="115.0" text="START TIME">
+            <Label  layoutX="37.0" layoutY="213.0" prefHeight="27.0" prefWidth="115.0" text="Hours Use">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+             <Label fx:id="hoursuse" layoutX="37.0" layoutY="213.0" prefHeight="27.0" prefWidth="115.0" text="">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -131,7 +141,12 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="498.0" layoutY="213.0" prefHeight="27.0" prefWidth="115.0" text="PANDING">
+            <Label layoutX="498.0" layoutY="213.0" prefHeight="27.0" prefWidth="115.0" text="Hours Balance">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+             <Label fx:id="hoursbal" layoutX="498.0" layoutY="213.0" prefHeight="27.0" prefWidth="115.0" text="">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

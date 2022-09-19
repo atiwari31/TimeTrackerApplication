@@ -5,6 +5,8 @@ import static com.dcardprocessing.controller.LoginController.id;
 import static com.dcardprocessing.controller.LoginController.tokenSession;
 import static com.dcardprocessing.controller.LoginController.userName;
 import static com.dcardprocessing.util.ScreenCaptureTask.moduleScreenId;
+import static com.dcardprocessing.util.ScreenCaptureTask.lead_id;
+import static com.dcardprocessing.util.ScreenCaptureTask.time_id;
 import static com.dcardprocessing.util.URLInterface.urlEndTime;
 import static com.dcardprocessing.util.URLInterface.urlModule;
 import static com.dcardprocessing.util.URLInterface.urlProject;
@@ -73,6 +75,15 @@ public class DashboardController implements Initializable {
 	@FXML
 	private Label successmsg;
 
+	@FXML
+	private Label successmsgStop;
+	
+	@FXML
+	private Label hoursuse;
+	
+	@FXML
+	private Label hoursbal;
+	
 	ScheduledExecutorService scheduledExecutorService;
 
 	@Autowired
@@ -82,6 +93,9 @@ public class DashboardController implements Initializable {
 	int moduleId = 0;
 	static int timeId = 0;
 	static int projectLeadIdStatic = 0;
+	
+	public static String hours_use;
+	public static String hours_bal;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -159,55 +173,7 @@ public class DashboardController implements Initializable {
 				});
 				/************* Start ****************/
 
-//				HttpEntity<ProjectDetails> entityModule = new HttpEntity<ProjectDetails>(projectDetails, headers);
-//				ProjectModuleCombo projectModuleCombo = null;
-//
-//				for (int i = 0; i < jsonArray.length(); i++) {
-//					JSONObject explrObject = jsonArray.getJSONObject(i);
-//					projectModuleCombo = new ProjectModuleCombo();
-//					//projectDetails.setProject_leads_id((int) explrObject.get("project_leads_id"));
-//					projectDetails.setProject_leads_id(6);
-//					String reponseModule = null;
-//					reponseModule = restTemplate.exchange(urlModule, HttpMethod.POST, entityModule, String.class)
-//							.getBody();
-//
-//					String jsonModule = (String) parser.parse(reponseModule).toString();
-//
-//					projectModule = new JSONObject(jsonModule);
-//					if (success.equalsIgnoreCase("1")) {
-//						JSONArray jsonLead = projectModule.getJSONArray("leads");
-//						if (!jsonLead.isEmpty()) {
-//							JSONObject projectObject = (JSONObject) jsonLead.get(0);
-//							projectModuleCombo.setModuleId(projectObject.get("project_schedule_module_id").toString());
-//							projectModuleCombo.setModuleName(projectObject.get("module_scope").toString());
-//							moduleObjList.add(projectModuleCombo);
-//						}
-//					}
-//					break;
-//				}
-//				task.setItems(moduleObjList);
-//				task.setPromptText("Select  Module");
-//				task.setConverter(new StringConverter<ProjectModuleCombo>() {
-//
-//					@Override
-//					public String toString(ProjectModuleCombo object) {
-//						return object.getModuleName();
-//					}
-//
-//					@Override
-//					public ProjectModuleCombo fromString(String string) {
-//						return task.getItems().stream().filter(ap -> ap.getModuleName().equals(string)).findFirst()
-//								.orElse(null);
-//					}
-//				});
-//
-//				task.valueProperty().addListener((obs, oldval, newval) -> {
-//					if (newval != null)
-//						System.out.println(
-//								"Selected airport: " + newval.getModuleName() + ". ID: " + newval.getModuleId());
-//					taskerror.setText("");
-//					moduleMethod(newval.getModuleId());
-//				});
+
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -249,17 +215,28 @@ public class DashboardController implements Initializable {
 			if (success.equalsIgnoreCase("1")) {
 				timeId = (int) timeRepone.get("time_id");
 			}
+			time_id=timeId;
+			successmsgStop.setText("");
 			successmsg.setText("Task Started Successfully");
+			
 			scheduledExecutorService = imageCaptureServiceImpl.callScreen();
 			imageCaptureServiceImpl.keyboardActivity();
-
+			hoursuse.setText(hours_use);
+			hoursbal.setText(hours_bal);
+		
 		}
 	}
 	@FXML
-	public void stopScan(ActionEvent event) throws InterruptedException, AWTException, IOException, ParseException {
-		
-		System.out.println();
-
+	public void stopScan(ActionEvent event) throws InterruptedException, AWTException, IOException, ParseException, NativeHookException {
+		successmsg.setText("");
+		if (scheduledExecutorService != null && !scheduledExecutorService.isShutdown()) {
+			successmsgStop.setText("Task Stop Successfully");
+			scheduledExecutorService.shutdownNow();
+			GlobalScreen.unregisterNativeHook();
+		}else {
+			successmsgStop.setText("Please Start Task");
+		}
+			
 	}
 
 	/**
@@ -325,6 +302,7 @@ public class DashboardController implements Initializable {
 
 	private void projectMethod(int projectLeadId) throws ParseException {
 		projectLeadIdStatic = projectLeadId;
+		lead_id=projectLeadId;
 		moduleObjList = FXCollections.observableArrayList();
 		JSONObject projectModule = null;
 		JSONParser parser = new JSONParser();

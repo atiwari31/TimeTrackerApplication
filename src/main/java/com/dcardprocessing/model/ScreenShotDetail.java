@@ -1,14 +1,13 @@
 package com.dcardprocessing.model;
 
-import java.awt.image.BufferedImage;
-
 public class ScreenShotDetail {
 	
 	private Long freelancer_id;
 	private String token;
 	private int module_id;
 	private byte [] image ;
-	
+	private int time_id;
+	private int lead_id;
 	/**
 	 * @return the freelancer_id
 	 */
@@ -55,6 +54,36 @@ public class ScreenShotDetail {
 	 * @param image the image to set
 	 */
 	public void setimage(byte[] image) {
+		this.image = image;
+	}
+	/**
+	 * @return the time_id
+	 */
+	public int getTime_id() {
+		return time_id;
+	}
+	/**
+	 * @param time_id the time_id to set
+	 */
+	public void setTime_id(int time_id) {
+		this.time_id = time_id;
+	}
+	/**
+	 * @return the lead_id
+	 */
+	public int getLead_id() {
+		return lead_id;
+	}
+	/**
+	 * @param lead_id the lead_id to set
+	 */
+	public void setLead_id(int lead_id) {
+		this.lead_id = lead_id;
+	}
+	/**
+	 * @param image the image to set
+	 */
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 

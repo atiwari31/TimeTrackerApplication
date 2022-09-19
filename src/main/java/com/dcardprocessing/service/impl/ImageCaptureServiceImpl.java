@@ -28,9 +28,7 @@ import com.dcardprocessing.util.ScreenCaptureTask;
 
 @Component
 public class ImageCaptureServiceImpl extends Thread{
-	 private Thread thread;
-     private String threadName;
-	
+		
 	static int  count=0;
 	
 	@Autowired
@@ -44,6 +42,7 @@ public class ImageCaptureServiceImpl extends Thread{
 		
 		
 		 ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+		 
 		 ScreenCaptureTask task1 = new ScreenCaptureTask(imageService);
 		     
 		    System.out.println("The time is : " + new Date());
