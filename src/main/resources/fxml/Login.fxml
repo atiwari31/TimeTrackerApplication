@@ -16,7 +16,7 @@
    <children>
       <AnchorPane prefHeight="284.0" prefWidth="418.0" styleClass="background" stylesheets="@../styles/Styles.css">
          <children>
-               <Label fx:id="lblLogin" layoutX="38.0" layoutY="28.0" prefHeight="30.0" prefWidth="320.0" text="       Eiliana Desktop Application" textFill="#2f84fa">
+               <Label fx:id="lblLogin" layoutX="38.0" layoutY="28.0" prefHeight="30.0" prefWidth="320.0" text="       Eiliana Application" textFill="#2f84fa" style="-fx-font-weight: bold">
               
                <font>
                   <Font name="System Bold" size="20.0" />

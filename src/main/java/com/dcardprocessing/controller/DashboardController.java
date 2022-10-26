@@ -4,8 +4,8 @@ import static com.dcardprocessing.TimeTrackerApp.stageManager;
 import static com.dcardprocessing.controller.LoginController.id;
 import static com.dcardprocessing.controller.LoginController.tokenSession;
 import static com.dcardprocessing.controller.LoginController.userName;
-import static com.dcardprocessing.util.ScreenCaptureTask.moduleScreenId;
 import static com.dcardprocessing.util.ScreenCaptureTask.lead_id;
+import static com.dcardprocessing.util.ScreenCaptureTask.moduleScreenId;
 import static com.dcardprocessing.util.ScreenCaptureTask.time_id;
 import static com.dcardprocessing.util.URLInterface.urlEndTime;
 import static com.dcardprocessing.util.URLInterface.urlModule;
@@ -13,6 +13,7 @@ import static com.dcardprocessing.util.URLInterface.urlProject;
 import static com.dcardprocessing.util.URLInterface.urlStartTime;
 
 import java.awt.AWTException;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,8 +39,11 @@ import com.dcardprocessing.model.ProjectDetails;
 import com.dcardprocessing.model.StartTimeDetail;
 import com.dcardprocessing.service.impl.ImageCaptureServiceImpl;
 import com.dcardprocessing.util.ProjectModuleCombo;
+import com.dcardprocessing.util.Time;
 import com.dcardprocessing.view.FxmlView;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,6 +52,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 import javafx.util.StringConverter;
 
 @Controller
@@ -79,10 +85,8 @@ public class DashboardController implements Initializable {
 	private Label successmsgStop;
 	
 	@FXML
-	private Label hoursuse;
+	private Label timerTaskLabel;
 	
-	@FXML
-	private Label hoursbal;
 	
 	ScheduledExecutorService scheduledExecutorService;
 
@@ -96,6 +100,17 @@ public class DashboardController implements Initializable {
 	
 	public static String hours_use;
 	public static String hours_bal;
+	
+	 
+	 @FXML
+		private Label timer;
+	Time time = new Time("00:00:00");
+	 Timeline timeline = new Timeline(
+	            new KeyFrame(Duration.seconds(1),
+	                    e -> {
+	                        time.oneSecondPassed();
+	                        timer.setText(time.getCurrentTime());
+	            }));
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -164,6 +179,7 @@ public class DashboardController implements Initializable {
 						System.out.println("Selected airport: " + newval.getProjectTitle() + ". ID: "
 								+ newval.getProjectId() + "Lead ID :" + newval.getProjectLeadId());
 					projecterror.setText("");
+					successmsgStop.setText("");
 					try {
 						projectMethod(newval.getProjectLeadId());
 					} catch (ParseException e) {
@@ -185,12 +201,13 @@ public class DashboardController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		 	
 
 	}
 
 	@FXML
 	public void startScan(ActionEvent event) throws InterruptedException, AWTException, IOException, ParseException {
-
+		
 		if (project == null || project.getValue() == null || project.getValue().getProjectTitle().isEmpty()) {
 			System.out.println("#####################################");
 			projecterror.setText("Please Select Project");
@@ -217,15 +234,24 @@ public class DashboardController implements Initializable {
 			}
 			time_id=timeId;
 			successmsgStop.setText("");
+			timerTaskLabel.setText("Timer Task");
 			successmsg.setText("Task Started Successfully");
 			
+			timer.setText(time.getCurrentTime());
+	        timeline.setCycleCount(Timeline.INDEFINITE);
+	        if("PAUSED".equalsIgnoreCase(timeline.getStatus().name())) {
+	        	timeline.playFromStart();
+	        }else {
+	        	timeline.play();
+	        }
 			scheduledExecutorService = imageCaptureServiceImpl.callScreen();
+			 
 			imageCaptureServiceImpl.keyboardActivity();
-			hoursuse.setText(hours_use);
-			hoursbal.setText(hours_bal);
+			
 		
 		}
 	}
+	
 	@FXML
 	public void stopScan(ActionEvent event) throws InterruptedException, AWTException, IOException, ParseException, NativeHookException {
 		successmsg.setText("");
@@ -233,8 +259,10 @@ public class DashboardController implements Initializable {
 			successmsgStop.setText("Task Stop Successfully");
 			scheduledExecutorService.shutdownNow();
 			GlobalScreen.unregisterNativeHook();
+			timeline.pause();
 		}else {
 			successmsgStop.setText("Please Start Task");
+			 
 		}
 			
 	}
@@ -382,6 +410,7 @@ public class DashboardController implements Initializable {
 	@FXML
 	private void logout(ActionEvent event) throws IOException, InterruptedException, AWTException, NativeHookException {
 		endTime();
+		timeline.stop();
 		if (scheduledExecutorService != null && !scheduledExecutorService.isShutdown())
 			scheduledExecutorService.shutdownNow();
 		GlobalScreen.unregisterNativeHook();
@@ -392,6 +421,11 @@ public class DashboardController implements Initializable {
 		stageManager.switchScene(FxmlView.LOGIN);
 	}
 
+	@FXML
+	public void about() throws Exception {
+		Desktop.getDesktop().browse(java.net.URI.create("https://eiliana.com/how-it-works"));
+	}
+	
 	/**
 	 * @return the taskerror
 	 */
@@ -419,5 +453,6 @@ public class DashboardController implements Initializable {
 	public void setWelcome(Label welcome) {
 		this.welcome = welcome;
 	}
+	
 
 }

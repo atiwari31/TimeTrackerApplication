@@ -67,7 +67,7 @@ public class LoginController  implements Initializable {
 		Login login = new Login();
 		
 		
-		String url = "http://65.0.2.180/api/freelancer/login";
+		String url = "http://157.245.98.13/api/freelancer/login";
 		HttpHeaders headers = new HttpHeaders();
 		RestTemplate restTemplate = new RestTemplate();
 		login.setEmail(username.getText());
@@ -170,4 +170,5 @@ public class LoginController  implements Initializable {
 	public void signup() throws Exception {
 		Desktop.getDesktop().browse(java.net.URI.create("https://eiliana.com/signup"));
 	}
+	
 }

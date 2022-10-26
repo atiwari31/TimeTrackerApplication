@@ -46,9 +46,9 @@ public class ImageCaptureServiceImpl extends Thread{
 		 ScreenCaptureTask task1 = new ScreenCaptureTask(imageService);
 		     
 		    System.out.println("The time is : " + new Date());
-		    ScheduledFuture<?> result = executor.scheduleAtFixedRate(task1, 5, 5, TimeUnit.SECONDS);
+		    ScheduledFuture<?> result = executor.scheduleAtFixedRate(task1,1, 1, TimeUnit.MINUTES);
 		    //executor.schedule(task1, 5 , TimeUnit.SECONDS);
-		     
+		  
 		    try {
 		    	TimeUnit.MILLISECONDS.sleep(2000);
 		    } catch (InterruptedException e) {

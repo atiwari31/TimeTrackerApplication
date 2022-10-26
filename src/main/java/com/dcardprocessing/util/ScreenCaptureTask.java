@@ -4,11 +4,12 @@ import static com.dcardprocessing.controller.LoginController.id;
 import static com.dcardprocessing.controller.LoginController.tokenSession;
 import static com.dcardprocessing.controller.DashboardController.hours_use;
 import static com.dcardprocessing.controller.DashboardController.hours_bal;
-
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,6 +21,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.dcardprocessing.controller.DashboardController;
+import com.dcardprocessing.model.LoginTimeDetails;
 import com.dcardprocessing.model.ScreenShotDetail;
 import com.dcardprocessing.service.impl.ImageService;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
@@ -30,6 +33,8 @@ public class ScreenCaptureTask implements Runnable {
 	public static int moduleScreenId = 0;
 	public static int time_id = 0;
 	public static int lead_id = 0;
+	public static Map<String,String> timeMapLocal=new HashMap();
+	
 	@Autowired
 	ImageService imageService;
 
@@ -37,6 +42,7 @@ public class ScreenCaptureTask implements Runnable {
 		// TODO Auto-generated constructor stub
 		this.imageService = imageService;
 	}
+	
 
 	@Override
 	public void run() {
@@ -55,7 +61,9 @@ public class ScreenCaptureTask implements Runnable {
 			// ImageIO.write(Image, "jpg", new File(path));
 			// imageEntity.setImage(path);
 			// imageEntity.setCreatedDate(dateTime.toString());
-			savedScreenShot(Image);
+			LoginTimeDetails loginTimeDetails=savedScreenShot(Image);
+			timeMapLocal.put("Hours_bal", loginTimeDetails.getHours_bal());
+			timeMapLocal.put("Hours_use", loginTimeDetails.getHours_use());
 			System.out.println("Screenshot saved");
 			// imageService.save(imageEntity);
 		} catch (Exception e) {
@@ -64,8 +72,9 @@ public class ScreenCaptureTask implements Runnable {
 		}
 	}
 
-	private void savedScreenShot(BufferedImage Image) throws ParseException {
+	private LoginTimeDetails savedScreenShot(BufferedImage Image) throws ParseException {
 		JSONParser parser = new JSONParser();
+		LoginTimeDetails loginTimeDetails=null;
 		String url = "http://65.0.2.180/api/freelancer/saveScreenshot";
 		HttpHeaders headers = new HttpHeaders();
 		ScreenShotDetail screenShotDetail = new ScreenShotDetail();
@@ -84,10 +93,14 @@ public class ScreenCaptureTask implements Runnable {
 		String hours_use_image = (String) json.get("hours_use");
 		String hours_bal_image = (String) json.get("hours_bal");
 		if (success.equalsIgnoreCase("1")) {
-			hours_use=hours_use_image;
-			hours_bal=hours_bal_image;
+			loginTimeDetails=new LoginTimeDetails();
+			//System.out.println("Screenshot saved1" + hours_use_image);
+			//System.out.println("Screenshot saved2" + hours_bal_image);
+			loginTimeDetails.setHours_bal(hours_bal_image);;
+			loginTimeDetails.setHours_use(hours_use_image);
 		}
 		System.out.println("Screenshot saved1" + hours_use);
 		System.out.println("Screenshot saved2" + hours_bal);
+		return loginTimeDetails;
 	}
 }
